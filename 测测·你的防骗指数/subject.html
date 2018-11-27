@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>测测·你的防骗指数</title>
+<link rel="stylesheet" href="images/animation.css" />
+<link rel="stylesheet" href="images/common.css" />
+<link rel="stylesheet" href="images/multiple.css" />
+
+<style>
+body{background: url("images/bg.png") repeat ;}
+.t-btn1{
+	color:#fff;
+	background: url("images/titlepanel.png") no-repeat;
+	background-position: center center;
+	background-size: contain;
+	padding-top:15px;
+	padding-bottom:15px;
+	padding-left:40px;
+	padding-right:40px;
+	text-align: center;
+	margin:0 auto;
+}
+.t-s::after{
+	position:absolute;
+	right:5px;
+	top:0;
+	padding:4px;
+	background:rgba(255,255,255,0);
+	content:url("images/select.png");
+	display:none;
+	opacity:0;
+	-webkit-transition:opacity 0.3s ease;
+}
+
+.animation-breath{
+	-webkit-animation:breath 1s ease-in-out infinite;
+}
+@-webkit-keyframes breath {
+		0% { opacity: 0.4; }
+		50%  { opacity: 1; }
+		100%   { opacity: 0.4; }
+}
+#preload{
+	display:none;
+}
+#result-bnt{
+	display:none;
+}
+</style>
+<script src="images/common.js"></script>
+</head>
+<body>
+<div class="main" id="main">
+	<div class="title-area">
+		<div class="head" id="btimg"><img id="head-img" src="images/banner.jpg"></div>
+		<div class="lt-w" id="toptit"><div id="dbt" class="t-btn1">测测·你的防骗指数</div></div>
+	</div>
+	<div style="display: none;" class="start-area" id="start">
+		<div class="auto-div start-auto">
+			<div class="div-inner"><div class="circle"></div><div class="home-desc" id="home-desc"></div></div>
+		</div>
+	</div>
+	<div style="display: block;" id="wenti">
+		<div id="progress-lable"><span style="font-size:20px">测试进度：</span><span id="pro-label-span" style="font-size:20px">1/10</span></div>
+		<div class="progress"><div style="width: 10%;" id="precent"></div></div>
+		<div class="question-only" id="question">1. 你会更换自己的密码吗？</div>
+		<div id="ti" style="display: block; font-size: 16px; text-align: center; color: rgb(255, 255, 255);">
+			<div style="display: none;" id="ti0" class="t-c"><img id="picti" src=""><img id="preload" src=""></div>
+			<div id="selections">
+				<div id="tia" vel="1" num="a." class="t-s" onClick="select(this);">从来不更换</div>
+				<div id="tib" vel="2" num="b." class="t-s" onClick="select(this);">遇到安全问题时才更换</div>
+				<div id="tic" vel="3" num="c." class="t-s" onClick="select(this);">定期更换</div>
+				<!--<div id="tid" vel="4" num="d." class="t-s" onClick="select(this);">将U盘中的文件备份到电脑之后,使用杀毒软件提供的“文件粉碎”功能将文件粉碎,然后再借给同学</div>-->
+			</div>
+		</div>
+	</div>
+
+	<div class="result" id="result">
+		<div class="auto-div">
+			<div class="div-inner">
+				<div class="circle"></div>
+				<div class="result-title" id="result-title"></div>
+				<div class="result-desc" id="result-desc"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var res_path = 'http://www1.dbappsecurity.com.cn/';
+	var dbt='测测·你的防骗指数';
+	// 问题
+	var orignal = eval([{"img":"","question":"1. 你会更换自己的密码吗？","answer":{"a":{"title":"从来不更换","weight":""},"b":{"title": "遇到安全问题时才更换","weight":""},"c":{"title":"定期更换","weight":""}},"right":"2","weight":"1"},{"img":"","question":"2.小明的手机收到一条10086发来的短信，内容是“您的手机话费积分可以兑换200元奖品，请用手机登陆http://prize-10086.pw/，根据提示信息领取”。小明应该：","answer":{"a":{"title":"先登陆网站，看看再作决定","weight":""},"b":{"title":"可能是冒充10086发的短信，看起来不可信，不理它","weight":""},"c":{"title":"给10086打电话核实，是否有这个活动，如有，则登陆网站领取","weight":""}},"right":"2","weight":"1"},{"img":"","question":"3.有人说网络是虚拟的尤其是手机移动网络更是不安全的，因此我们应该拒绝使用任何网上支付工具，对此你认为应该：","answer":{"a":{"title":"在有防火墙的情况下，可以使用网上支付","weight":""},"b":{"title":"只要有安全检测软件，就可以放心使用网上支付","weight":""},"c":{"title":"网络环境安全，支付有多重安全保障可以使用网上支付","weight":""}},"right":"2","weight":"1"},{"img":"","question":"4.假如你有一款旧的智能手机准备出售，但又担心手机中存储的数据泄露。你会怎样处理？","answer":{"a":{"title":"删除手机中的数据就可以防止信息泄露","weight":""},"b":{"title":"正规渠道刷机后可以减低数据泄露的风险","weight":""},"c":{"title":"格式化手机存储卡可以降低数据泄露的风险","weight":""}},"right":"2","weight":"1"},{"img":"","question":"5.我们经常从网站上下载文件、软件,为了确保系统安全,你会这么做","answer":{"a":{"title":"百度搜索下载直接使用","weight":""},"b":{"title":"去大型正规网站论坛下载","weight":""},"c":{"title":"在线沙箱里查毒确认再安装使用","weight":""}},"right":"2","weight":"1"},{"img":"","question":"6.当你的电脑处于联网状态，并且涉及到钱财交易时，你会怎么做？","answer":{"a":{"title":"不开防火墙","weight":""},"b":{"title":"开启防火墙，不运行杀毒软件。","weight":""},"c":{"title":"开启防火墙，并运行杀毒软件，以防联网时电脑中毒，个人信息泄露","weight":""}},"right":"2","weight":"1"},{"img":"","question":"7.当你逛街时，用手机扫描到了商场的Wifi接口，并且名称很相似且都不用输入密码的两个Wifi接口,此时你会：","answer":{"a":{"title":"商场的Wifi应该没问题，放心接入就行","weight":""},"b":{"title":"随便接入一个，只要不登陆网上支付和社交平台就安全","weight":""},"c":{"title":"为了自己的上网安全，两个Wifi都不接入","weight":""}},"right":"2","weight":"1"},{"img":"","question":"8.你觉得与互联网实现物理隔离的计算机，是否就不存在安全隐患？","answer":{"a":{"title":"只要不与互联网连接，就不存在安全隐患","weight":""},"b":{"title":"只要安装了病毒防火墙和网络防火墙，就不会存在安全隐患","weight":""},"c":{"title":"如果未设置账号、密码，或者存在资源共享等情况，就有可能存在安全隐患","weight":""}},"right":"2","weight":"1"},{"img":"","question":"9.如果遭遇勒索木马要求你转发三个人或缴纳赎金,你会这么做？","answer":{"a":{"title":"转发给别人","weight":""},"b":{"title":"破财免灾，交赎金","weight":""},"c":{"title":"报警求助","weight":""}},"right":"2","weight":"1"},{"img":"","question":"10.如果电脑中了病毒或木马，你会怎么办？","answer":{"a":{"title":"无所谓，反正也没什么重要东西","weight":""},"b":{"title":"先自行尝试，不行再求助","weight":""},"c":{"title":"拔掉网线，马上求助","weight":""}},"right":"2","weight":"1"}]);
+
+	var xlist = eval([{"img":"","question":"1. 你会更换自己的密码吗？","answer":{"a":{"title":"从来不更换","weight":""},"b":{"title": "遇到安全问题时才更换","weight":""},"c":{"title":"定期更换","weight":""}},"right":"2","weight":"1"},{"img":"","question":"2.小明的手机收到一条10086发来的短信，内容是“您的手机话费积分可以兑换200元奖品，请用手机登陆http://prize-10086.pw/，根据提示信息领取”。小明应该：","answer":{"a":{"title":"先登陆网站，看看再作决定","weight":""},"b":{"title":"可能是冒充10086发的短信，看起来不可信，不理它","weight":""},"c":{"title":"给10086打电话核实，是否有这个活动，如有，则登陆网站领取","weight":""}},"right":"2","weight":"1"},{"img":"","question":"3.有人说网络是虚拟的尤其是手机移动网络更是不安全的，因此我们应该拒绝使用任何网上支付工具，对此你认为应该：","answer":{"a":{"title":"在有防火墙的情况下，可以使用网上支付","weight":""},"b":{"title":"只要有安全检测软件，就可以放心使用网上支付","weight":""},"c":{"title":"网络环境安全，支付有多重安全保障可以使用网上支付","weight":""}},"right":"2","weight":"1"},{"img":"","question":"4.假如你有一款旧的智能手机准备出售，但又担心手机中存储的数据泄露。你会怎样处理？","answer":{"a":{"title":"删除手机中的数据就可以防止信息泄露","weight":""},"b":{"title":"正规渠道刷机后可以减低数据泄露的风险","weight":""},"c":{"title":"格式化手机存储卡可以降低数据泄露的风险","weight":""}},"right":"2","weight":"1"},{"img":"","question":"5.我们经常从网站上下载文件、软件,为了确保系统安全,你会这么做","answer":{"a":{"title":"百度搜索下载直接使用","weight":""},"b":{"title":"去大型正规网站论坛下载","weight":""},"c":{"title":"在线沙箱里查毒确认再安装使用","weight":""}},"right":"2","weight":"1"},{"img":"","question":"6.当你的电脑处于联网状态，并且涉及到钱财交易时，你会怎么做？","answer":{"a":{"title":"不开防火墙","weight":""},"b":{"title":"开启防火墙，不运行杀毒软件。","weight":""},"c":{"title":"开启防火墙，并运行杀毒软件，以防联网时电脑中毒，个人信息泄露","weight":""}},"right":"2","weight":"1"},{"img":"","question":"7.当你逛街时，用手机扫描到了商场的Wifi接口，并且名称很相似且都不用输入密码的两个Wifi接口,此时你会：","answer":{"a":{"title":"商场的Wifi应该没问题，放心接入就行","weight":""},"b":{"title":"随便接入一个，只要不登陆网上支付和社交平台就安全","weight":""},"c":{"title":"为了自己的上网安全，两个Wifi都不接入","weight":""}},"right":"2","weight":"1"},{"img":"","question":"8.你觉得与互联网实现物理隔离的计算机，是否就不存在安全隐患？","answer":{"a":{"title":"只要不与互联网连接，就不存在安全隐患","weight":""},"b":{"title":"只要安装了病毒防火墙和网络防火墙，就不会存在安全隐患","weight":""},"c":{"title":"如果未设置账号、密码，或者存在资源共享等情况，就有可能存在安全隐患","weight":""}},"right":"2","weight":"1"},{"img":"","question":"9.如果遭遇勒索木马要求你转发三个人或缴纳赎金,你会这么做？","answer":{"a":{"title":"转发给别人","weight":""},"b":{"title":"破财免灾，交赎金","weight":""},"c":{"title":"报警求助","weight":""}},"right":"2","weight":"1"},{"img":"","question":"10.如果电脑中了病毒或木马，你会怎么办？","answer":{"a":{"title":"无所谓，反正也没什么重要东西","weight":""},"b":{"title":"先自行尝试，不行再求助","weight":""},"c":{"title":"拔掉网线，马上求助","weight":""}},"right":"2","weight":"1"}]);
+
+	for(var i=0; i<xlist.length; i++){
+		xlist[i].img = 'http://wetest.qiniudn.com/' +　xlist[i].img;
+	}
+    //fontstyle
+    var fontstyle = eval([{"fontSize":"16px","textAlign":"center","color":"#fff"}]);
+    var ylist = eval([{"threshold":"30","img":"","title":"传说的大神","desc":" 哇！你这么厉害，一定是网安界大神吧！","sharetitle":"在测测·你的防骗指数中我获得“传说的大神”"},{"threshold":"20","img":"","title":"进击的萌新","desc":"你的安全意识跟上了时代的步伐，请继续保持！","sharetitle":"在测测·你的防骗指数中我获得“进击的萌新”"},{"threshold":"10","img":"","title":"划水的小白","desc":"啊哦~貌似你的安全意识不够强哦，平常还请多多注意呢！","sharetitle":"在测测·你的防骗指数中我获得“划水的小白”"}]);
+    var total=xlist.length; // 总题数
+    var finish = 1; // 已完成题数
+    var answer_right = 0; // 答对题数
+    var score = 0;
+    var isweight = xlist[0].weight;
+    var targetScroe = 0;
+
+    function startTest(){
+    	setTimeout(function () {
+            addClass(document.getElementById('main'),'animation-next');
+   	        document.getElementById('start').style.display = 'none';
+  	        document.getElementById('wenti').style.display = 'block';
+        },500)
+    }
+    function creatanserElement( anser){
+    	var vel = 1;
+    	var xieti = '';
+    	for(index in anser){
+    		console.log(index)
+    		xieti +=  "<div id='ti" +index + "'" +" vel='"  +index + "'" +  " num='" +index + ".'" +" class='t-s' onclick='select(this);'><span></span></div>";
+    	}
+    	//console.log(xieti);
+    	document.getElementById('selections').innerHTML = xieti;
+    }
+
+    function setquestion(i){
+    	creatanserElement(xlist[i].answer);
+     	     	addClass(document.getElementById('question'), 'question-only');
+     	document.getElementById('question').innerHTML = xlist[i].question;
+     	document.getElementById('ti0').style.display = 'none';
+     			var num=1;
+		for(anser in xlist[i].answer){
+			document.getElementById('ti' + anser).innerHTML = xlist[i].answer[anser].title; //换题
+				if(xlist[i].answer[anser].weight !=""){
+					document.getElementById('ti' + anser).setAttribute('vel',xlist[i].answer[anser].weight);
+					targetScroe += xlist[i].answer[anser].weight;
+					//console.log("weight:" + xlist[i].answer[anser].weight);
+				}
+				else{document.getElementById('ti' + anser).setAttribute('vel',num);
+				targetScroe += num;
+				num += 1;
+				}
+		}
+
+		if(i<(total-1)){
+			//console.log("i:" + i + "orignal[i+1].img:" + orignal[i+1].img);
+			if( orignal[i + 1].img!="")
+				document.getElementById('preload').setAttribute('src',xlist[i + 1].img);
+		}
+
+     }
+     function paduan(selected){
+
+    	    selected = parseInt(selected);
+    	    score += selected;
+    	    var level='';
+    	    console.log('selected' + selected)
+    	    console.log('finish:' + finish)
+        	if(xlist[finish - 1].right == selected){
+        		answer_right += 1;
+        		console.log('right:' + answer_right);
+        	}
+       		if(total== finish)
+       		{
+       			console.log('finish' + finish)
+       			if(isweight == '0'){
+       				if(answer_right > total*0.75){
+           				level="A";
+           			}else if(answer_right > total*0.5){
+           				level="B";
+           			}else if(answer_right > total*0.25){
+           				level="C";
+           			}else{
+           				level="D";
+           			}
+       			}
+
+       			showResult(level);
+       		}
+       		else{
+       			setquestion(finish);
+       			finish += 1;
+       			}
+        }
+
+     function showResult(level){
+     	var answerTitle='';
+     	var answerDesc='';
+ 	   	 for(i=0; i< ylist.length; i++){
+ 	   		 if(isweight == '1'){
+ 	   			 if(score >= ylist[i].threshold){
+  				    answerTitle = ylist[i].title;
+ 				    answerDesc= ylist[i].desc;
+ 				   if(ylist[i].sharetitle !="")
+				    	dataForWeixin.title = ylist[i].sharetitle;
+				    else if(ylist[i].title !=""){
+ 				    	dataForWeixin.title = "我在《" + dbt + "》测试结果是：" + ylist[i].title + "。你也来试试";
+ 				    }
+ 				    break;
+ 	   			 }
+ 	   		 }
+ 	   		 else if(ylist[i].threshold == level){
+ 				    answerTitle = ylist[i].title;
+ 				    answerDesc= ylist[i].desc;
+  				   if(ylist[i].sharetitle !="")
+				    	dataForWeixin.title = ylist[i].sharetitle;
+				    else if(ylist[i].title !=""){
+				    	dataForWeixin.title = "我在《" + dbt + "》中测试结果是：" + ylist[i].title + "。你也来试试";
+				    }
+ 				   break;
+ 			 }
+ 		 }
+ 		 document.getElementById('result-title').innerHTML = answerTitle;
+ 		 document.getElementById('result-desc').innerHTML = answerDesc;
+ 		 document.getElementById('dbt').innerHTML = dbt;
+ 		 document.title=dbt;
+
+ 		 //document.getElementById('share-tip').style.display = 'block';
+ 		 document.getElementById('wenti').style.display = 'none';
+     	 document.getElementById('result').style.display = 'block';
+     	 document.getElementById('result-bnt').style.display = 'block';
+     	 document.getElementById('ad_bottom').style.bottom = '50px';
+
+        /*document.body.addEventListener('touchmove', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });*/
+     }
+</script>
+<script>
+function select(dom){
+    	removeClass(dom,'active');
+    	//removeClass(document.body,'animation-next');
+    	removeClass(document.getElementById('main'),'animation-next');
+    	addClass(dom,'active');
+    	setTimeout(function () {
+            paduan(dom.getAttribute('vel'));
+            updateProcess();
+            removeClass(dom,'active');
+
+            addClass(document.getElementById('main'),'animation-next');
+        },500)
+
+ }
+   function initGameFont(){
+		if(typeof(fontstyle) != 'undefined'){
+			for(stye in fontstyle[0]){
+			    document.getElementById('ti').style[stye] = fontstyle[0][stye];
+			   // document.getElementById('ti' + anser).style.textAlign = 'center';
+			}
+		}
+   }
+</script>
+<script>
+	var process = 1/total;
+    var i = 1;
+    function updateProcess(){
+        process =  1/total * i * 100;
+        if(i>= total) i=total;
+        if(process >= 100) process=100;
+        document.getElementById('precent').style.width = process + '%';
+        document.getElementById('pro-label-span').innerHTML = i + '/' + total;
+        i++;
+    }
+    function adpthead(){
+        var img = document.getElementById('head-img');
+        console.log(document.body.clientWidth);
+//        alert(document.body.scrollWidth)
+        var imgStyleHeight = img.height;
+        var targetHeight = 100;
+        //alert(imgStyleHeight);
+        if(imgStyleHeight > targetHeight){
+            img.style.marginTop = -(imgStyleHeight-targetHeight)/2 + 'px';
+            img.style.marginBottom= -(imgStyleHeight-targetHeight)/2 + 'px';
+            img.maxHeight = 100 + 'px';
+            img.overflow = 'hidden';
+        }
+    }
+
+    function setbanner(){
+  	   var banner = '';
+  	   console.log('banner:' + banner)
+ 	   if(banner !=""){
+ 		   document.getElementById('head-img').setAttribute('src','http://wetest.qiniudn.com/' + banner);
+ 	   }else{
+ 		   document.getElementById('head-img').setAttribute('src','images/banner.jpg');
+ 	   }
+     }
+
+    function initGame(){
+    	if("".trim() == ""){
+   	        document.getElementById('start').style.display = 'none';
+  	        document.getElementById('wenti').style.display = 'block';
+    	}
+    	else{
+        	document.getElementById('home-desc').innerHTML = '';
+    	}
+    	   setbanner();
+    	   document.getElementById('dbt').innerHTML = dbt;
+    	   document.title=dbt;
+    	   setquestion(0); // 初始化
+    	   initGameFont();
+    	   updateProcess();
+    }
+    initGame();
+
+</script>
+
+<script language="javascript">
+var _host = "http://" + window.location.host;
+var share_url = "http://www1.dbappsecurity.com.cn/serves.aspx#se4";
+function attention_wx() {
+	alert("杭州安恒信息技术有限公司");
+	location.href='http://www1.dbappsecurity.com.cn/serves.aspx#se4';
+
+}
+var dataForWeixin = {
+		appId : "",
+		MsgImg : 'http://www1.dbappsecurity.com.cn/serves.aspx#se4',
+		TLImg:'http://www1.dbappsecurity.com.cn/serves.aspx#se4',
+		shareurl :share_url,
+		title :  '我在参加了“' + '测测·你的防骗指数' + '”测试，你也快来测测',
+		desc :   '很有趣呦,都来试试吧！',
+		callback : function() {
+			$post("/wxapi.php/wetest/inc_share","mid=31");
+			_czc.push(["_trackEvent","share",'share','mutiple', '31']);
+					}
+};
+function inc_view()
+{
+	$post("/wxapi.php/wetest/inc_view","mid=31");
+}
+setTimeout(inc_view,3000);
+</script>
+<script src="images/wxtools.js"></script>
+<script>var _czc = _czc || [];</script>
+
+<div style="display:none"></div>
+<style>
+.ad_bottom {
+	text-align: center;
+	left:0px;
+	right:0px;
+	bottom: 0;
+	position: fixed;
+	z-index:999;
+}
+#ifr{height: 50px!important;}
+#spn{height: 50px!important;}
+#botBoxClose{z-index:20000;top:-20px;}
+#botBoxClose{position:absolute;text-align:center;right:0px;top:2px;width:20px;height:20px;line-height:18px;
+border-radius:10px;background:rgba(0,0,0,0.6);color:#fff;font-size:16px;font-family:arial;cursor:pointer;
+}
+
+</style>
+
+<script src="images/jssdk.js"></script>
+
+<div style="margin-bottom:60px;"></div>
+<div style="text-align:center;">
+</div>
+
+</body>
+</html>
